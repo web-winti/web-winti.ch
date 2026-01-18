@@ -87,6 +87,10 @@
 
         a {
             color: var(--color-accent);
+
+            &:hover, &:active  {
+                filter: saturate(1.1) brightness(1.1);
+            }
         }
 
         .intro {
@@ -104,7 +108,22 @@
             margin-bottom: var(--spacing-md);
         }
 
+        .sign-up-link {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: var(--font-size-lg);
+        }
+
         .card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-md);
             background-color: var(--color-bg);
             padding: var(--spacing-lg);
             border-radius: var(--radius-md);
@@ -115,7 +134,6 @@
             font-size: var(--font-size-sm);
             color: var(--color-text-secondary);
             line-height: 1.5;
-            margin-top: var(--spacing-md);
         }
 
         .card-date-value {
@@ -167,24 +185,28 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <article class="container">
         <h1>Web Winti</h1>
         <p class="intro">
             Vorträge, Networking und Apéro für alle, die sich in Winterthur für Webtechnologien interessieren.
         </p>
         
         <h2>Nächste Veranstaltung</h2>
-        <div class="card">
+        <section class="card">
             <div class="card-date-value">Do, 26. März 2024, 18:30 Uhr</div>
             <div class="card-content">
                 <strong>Encodo Systems AG</strong><br>
                 Garnmarkt 1<br>
                 8400 Winterthur
             </div>
-        </div>
+            <a href="mailto:info@web-winti.ch?subject=Anmeldung&body=Am%20n%C3%A4chsten%20Web-Winti-Anlass%20bin%20ich%20gern%20dabei!%0A%0AAnzahl%20Personen%3A%201%0A%0ALiebe%20Gr%C3%BCsse" class="sign-up-link">
+                Anmelden
+            </a>
+        </section>
+
 
         <h2>Talks</h2>
-        <div class="section-content">
+        <section class="section-content">
             <div class="talk">
                 <div class="talk-title">Moderne Web-Entwicklung mit React</div>
                 <div class="talk-speaker">Sarah Müller</div>
@@ -199,9 +221,16 @@
             
             <div class="talk">
                 <div class="talk-title">Talk 3: Noch offen</div>
-                <a href="mailto:info@web-winti.ch?subject=Talk" class="talk-description-link">Ich bin interessiert!</a>
+                <a href="mailto:info@web-winti.ch" class="talk-description-link">Ich bin interessiert!</a>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <h2>Kontakt</h2>
+
+        Bei Fragen und anderen Anliegen erreichst du uns unter
+        <a href="mailto:info@web-winti.ch">
+            info@web-winti.ch
+        </a>
+    </article>
 </body>
 </html>
