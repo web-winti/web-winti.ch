@@ -118,7 +118,7 @@
             margin-top: var(--spacing-md);
         }
 
-        .date-card-value {
+        .card-date-value {
             font-size: var(--font-size-xl);
             font-weight: 600;
             color: var(--color-text);
@@ -149,95 +149,10 @@
             line-height: 1.5;
         }
 
-        .location-details {
-            line-height: 1.6;
-        }
-
         .talk-description-link {
             font-size: var(--font-size-sm);
             font-weight: 500;
             margin-bottom: var(--spacing-sm);
-        }
-
-        .form-group {
-            margin-bottom: var(--spacing-xl);
-        }
-
-        label {
-            display: block;
-            font-size: var(--font-size-xs);
-            font-weight: 500;
-            color: var(--color-text);
-            margin-bottom: var(--spacing-xs);
-        }
-
-        input[type="text"],
-        input[type="email"] {
-            width: 100%;
-            padding: var(--spacing-sm);
-            font-size: var(--font-size-base);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-sm);
-            background-color: var(--color-bg-card);
-            transition: border-color var(--transition-fast);
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus {
-            outline: none;
-            border-color: var(--color-accent);
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--spacing-sm);
-        }
-
-        input[type="checkbox"] {
-            margin-top: 0.25rem;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--color-accent);
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            cursor: pointer;
-            font-weight: 400;
-        }
-
-        button[type="submit"] {
-            background-color: var(--color-accent);
-            color: white;
-            border: none;
-            padding: 0.875rem var(--spacing-2xl);
-            font-size: var(--font-size-base);
-            font-weight: 500;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: background-color var(--transition-fast);
-        }
-
-        button[type="submit"]:hover {
-            background-color: var(--color-accent-hover);
-        }
-
-        button[type="submit"]:active {
-            background-color: var(--color-accent-active);
-        }
-
-        .message {
-            margin-top: var(--spacing-xl);
-            padding: var(--spacing-md);
-            border-radius: var(--radius-sm);
-            font-size: var(--font-size-sm);
-            line-height: 1.5;
-        }
-
-        .message.hidden {
-            display: none;
         }
 
         @media (max-width: 600px) {
@@ -254,12 +169,14 @@
 <body>
     <div class="container">
         <h1>Web Winti</h1>
-        <p class="intro">Besucht uns für einen Abend mit inspirierenden Vorträgen und Networking mit anderen Web-Entwicklern in der Region Winterthur.</p>
+        <p class="intro">
+            Vorträge, Networking und Apéro für alle, die sich in Winterthur für Webtechnologien interessieren.
+        </p>
         
         <h2>Nächste Veranstaltung</h2>
-        <div class="card location">
-            <div class="date-card-value">Do, 26. März 2024, 18:30 Uhr</div>
-            <div class="card-content location-details">
+        <div class="card">
+            <div class="card-date-value">Do, 26. März 2024, 18:30 Uhr</div>
+            <div class="card-content">
                 <strong>Encodo Systems AG</strong><br>
                 Garnmarkt 1<br>
                 8400 Winterthur
@@ -285,86 +202,6 @@
                 <a href="mailto:info@web-winti.ch?subject=Talk" class="talk-description-link">Ich bin interessiert!</a>
             </div>
         </div>
-        
-        <h2>Anmelden</h2>
-        <form id="signup-form">
-            <input type="hidden" id="eventId" name="eventId" value="1">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" maxlength="100" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="invitations" name="invitations">
-                    <label for="invitations">Ich möchte Einladungen zu zukünftigen Veranstaltungen erhalten</label>
-                </div>
-            </div>
-            
-            <button type="submit">Absenden</button>
-            
-            <div id="message" class="message hidden"></div>
-        </form>
     </div>
-
-    <script>
-        const messageEl = document.getElementById('message');
-        
-        function showMessage(text, isError) {
-            messageEl.textContent = text;
-            messageEl.className = 'message ' + (isError ? 'message-error' : 'message-success');
-            messageEl.classList.remove('hidden');
-            
-            // Scroll to message
-            messageEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        function hideMessage() {
-            messageEl.classList.add('hidden');
-        }
-        
-        document.getElementById('signup-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Hide previous messages
-            hideMessage();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                invitations: document.getElementById('invitations').checked,
-                eventId: document.getElementById('eventId').value
-            };
-            
-            try {
-                const response = await fetch('http://api.localhost/sign-up', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    showMessage('Anmeldung erfolgreich! Vielen Dank für deine Anmeldung.', false);
-                    // Reset form
-                    document.getElementById('signup-form').reset();
-                    document.getElementById('eventId').value = '1';
-                } else {
-                    const errorMessage = data.error || data.message || 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
-                    showMessage(errorMessage, true);
-                }
-            } catch (error) {
-                showMessage('Netzwerkfehler. Bitte überprüfe deine Internetverbindung und versuche es erneut.', true);
-            }
-        });
-    </script>
 </body>
 </html>
