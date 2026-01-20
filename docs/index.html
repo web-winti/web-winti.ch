@@ -1,13 +1,238 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Winti</title>
+    <style>
+        :root {
+            /* Colors */
+            --color-accent: #c94a4a;
+            --color-accent-hover: #b03a3a;
+            --color-accent-active: #a03030;
+            --color-bg: #fafafa;
+            --color-bg-card: #ffffff;
+            --color-text: #333;
+            --color-text-secondary: #666;
+            --color-border: #ddd;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.25rem;
+            --spacing-xl: 1.5rem;
+            --spacing-2xl: 2rem;
+            --spacing-3xl: 3rem;
+            
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 6px;
+            --radius-lg: 8px;
+            
+            /* Font sizes */
+            --font-size-xs: 0.9rem;
+            --font-size-sm: 0.95rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2rem;
+            --font-size-3xl: 2.5rem;
+            
+            /* Transitions */
+            --transition-fast: 0.2s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-2xl);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: var(--color-bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-3xl);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--color-accent);
+            font-size: var(--font-size-3xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            margin-top: var(--spacing-md);
+        }
+
+        a {
+            color: var(--color-accent);
+
+            &:hover, &:active  {
+                filter: saturate(1.1) brightness(1.1);
+            }
+        }
+
+        .intro {
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        h2 {
+            color: var(--color-accent);
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-top: var(--spacing-2xl);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .sign-up-link {
+            display: inline-block;
+            background-color: var(--color-accent);
+            color: var(--color-bg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: var(--font-size-lg);
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            background-color: var(--color-bg);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--color-accent);
+        }
+
+        .card-content {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .card-date-value {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--color-text);
+            line-height: 1.3;
+        }
+
+        .talk {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .talk-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .talk-speaker {
+            font-size: var(--font-size-xs);
+            color: var(--color-accent);
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .talk-description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .talk-description-link {
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: var(--spacing-2xl);
+            }
+
+            h1 {
+                font-size: var(--font-size-2xl);
+            }
+        }
+    </style>
 </head>
 <body>
+    <article class="container">
+        <h1>Web Winti</h1>
+        <p class="intro">
+            Vorträge, Networking und Apéro für alle, die sich in Winterthur für Webtechnologien interessieren.
+        </p>
+        
+        <h2>Nächste Veranstaltung</h2>
+        <section class="card">
+            <div class="card-date-value">Do, 26. März 2026, 18:30 Uhr</div>
+            <div class="card-content">
+                <strong>Encodo Systems AG</strong><br>
+                Garnmarkt 1<br>
+                8400 Winterthur
+            </div>
+            <!--
+            <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x61;&#x6E;&#x6D;&#x65;&#x6C;&#x64;&#x75;&#x6E;&#x67;&#x40;&#x77;&#x65;&#x62;&#x2D;&#x77;&#x69;&#x6E;&#x74;&#x69;&#x2E;&#x63;&#x68;?subject=Anmeldung&body=Am%20n%C3%A4chsten%20Web-Winti-Anlass%20bin%20ich%20gern%20dabei!%0A%0AAnzahl%20Personen%3A%201%0A%0ALiebe%20Gr%C3%BCsse" class="sign-up-link">
+                Anmelden
+            </a>
+            -->
+        </section>
 
-<h1>Web Winti</h1>
 
-<p>Hello World</p>
+        <h2>Talks</h2>
+        <section class="section-content">
+            <div class="talk">
+                <div class="talk-title">ARIA Demystified: Make Your Web Thing More Accessible</div>
+                <div class="talk-speaker">Mo Celouti</div>
+                <div class="talk-description">Praktische Einführung in die Entwicklung barriereärmerer Webseiten und -Apps.</div>
+            </div>
+            
+            <div class="talk">
+                <div class="talk-title">It's About Time</div>
+                <div class="talk-speaker">Aleksej Dix</div>
+                <div class="talk-description">Introducing useTemporal library to build calendar UIs much faster.</div>
+            </div>
+            
+            <div class="talk">
+                <div class="talk-title">Talk 3: Noch offen</div>
+                <a href="mailto:info@web-winti.ch" class="talk-description-link">Ich bin interessiert!</a>
+            </div>
+        </section>
 
+        <h2>Kontakt</h2>
+
+        Bei Fragen und anderen Anliegen erreichst du uns unter
+        <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x69;&#x6E;&#x66;&#x6F;&#x40;&#x77;&#x65;&#x62;&#x2D;&#x77;&#x69;&#x6E;&#x74;&#x69;&#x2E;&#x63;&#x68;">
+            &#x69;&#x6E;&#x66;&#x6F;&#x40;&#x77;&#x65;&#x62;&#x2D;&#x77;&#x69;&#x6E;&#x74;&#x69;&#x2E;&#x63;&#x68;
+        </a>
+    </article>
 </body>
 </html>
