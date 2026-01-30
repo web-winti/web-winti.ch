@@ -128,11 +128,15 @@
             font-size: var(--font-size-lg);
         }
 
+        .card-small-print {
+            font-size: var(--font-size-xs);
+            font-weight: normal;
+        }
+
         .card {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: var(--spacing-md);
             background-color: var(--color-bg);
             padding: var(--spacing-lg);
             border-radius: var(--radius-md);
@@ -202,17 +206,20 @@
         
         <h2>Nächste Veranstaltung</h2>
         <section class="card">
-            <div class="card-date-value">Do, 26. März 2026, 18:30 Uhr</div>
-            <div class="card-content">
+            <p class="card-date-value">Do, 26. März 2026, 18:30 Uhr</p>
+            <p class="card-small-print">Türöffnung um 18:30 Uhr, Talks ab 19:00 Uhr</p>
+            <p class="card-content">
                 <strong>Encodo Systems AG</strong><br>
                 Garnmarkt 1<br>
                 8400 Winterthur
-            </div>
-            <!--
-            <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x61;&#x6E;&#x6D;&#x65;&#x6C;&#x64;&#x75;&#x6E;&#x67;&#x40;&#x77;&#x65;&#x62;&#x2D;&#x77;&#x69;&#x6E;&#x74;&#x69;&#x2E;&#x63;&#x68;?subject=Anmeldung&body=Am%20n%C3%A4chsten%20Web-Winti-Anlass%20bin%20ich%20gern%20dabei!%0A%0AAnzahl%20Personen%3A%201%0A%0ALiebe%20Gr%C3%BCsse" class="sign-up-link">
-                Anmelden
-            </a>
-            -->
+            </p>
+            <p>
+                <a href="https://www.meetup.com/web-zurich/events/313125552/" class="sign-up-link">
+                    Anmelden
+                </a>
+            </p>
+
+            <p class="card-small-print">Anmeldung <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;&#x3A;&#x61;&#x6E;&#x6D;&#x65;&#x6C;&#x64;&#x75;&#x6E;&#x67;&#x40;&#x77;&#x65;&#x62;&#x2D;&#x77;&#x69;&#x6E;&#x74;&#x69;&#x2E;&#x63;&#x68;?subject=Anmeldung&body=Am%20n%C3%A4chsten%20Web-Winti-Anlass%20bin%20ich%20gern%20dabei!%0A%0AAnzahl%20Personen%3A%201%0A%0ALiebe%20Gr%C3%BCsse">per Mail</a> geht auch.</p>
         </section>
 
 
