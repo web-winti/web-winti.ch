@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/basscss.min.css" />
+    <link rel="stylesheet" href="./css/basscss-colors.css" />
+  </head>
+
+  <body class="m0">
+    <div class="grid grid-main-template border1 overflow-auto">
+      <!-- Top Bar -->
+      <header
+        class="sticky top-0 grid items-center px3 g2 bg-black"
+        style="grid-template-columns: min-content auto min-content; grid-template-rows: auto; grid-column: 1 / -1; grid-row: 1"
+      >
+        <span class="relative bold w-max-content white absolute-coolness">
+          <h1 class="absolute">AcmeStore</h1>
+          <span aria-hidden="true">A</span><span aria-hidden="true"
+          >c</span><span aria-hidden="true">m</span><span aria-hidden="true"
+          >e</span><span aria-hidden="true">S</span><span aria-hidden="true"
+          >t</span><span aria-hidden="true">o</span><span aria-hidden="true"
+          >r</span><span aria-hidden="true">e</span>
+        </span>
+
+        <form
+          role="search"
+          aria-label="Products"
+          class="m0 flex justify-center flex-auto"
+          onsubmit="searchProducts(event)"
+        >
+          <input
+            id="search"
+            class="p1 border-top border-left flex-auto border-bottom border-teal border-right-none"
+            style="max-width: 350px"
+            placeholder="Search keyboards, switches, caps ..."
+          />
+          <button aria-label="Search" class="border">
+            <img aria-hidden="true" src="./icons/search.svg">
+          </button>
+        </form>
+
+        <div class="flex justify-end">
+          <button
+            aria-labelledby="cart-icon cart-count"
+            class="ghost w-fit-content cursor-pointer"
+            style="anchor-name: --shopping-cart"
+            command="show-modal"
+            commandfor="shopping-cart-details"
+          >
+            <img
+              id="cart-icon"
+              aria-label="Shopping Cart"
+              src="./icons/shopping-cart.svg"
+            />
+            <div
+              id="cart-count"
+              aria-label="is empty"
+              class="hide-empty absolute bold flex items-center justify-center aspect-ratio-1-1 circle white bg-fuchsia font-small border"
+              style="height: 16px; position-anchor: --shopping-cart; top: anchor(-6%); right: anchor(118%)"
+            ></div>
+          </button>
+        </div>
+      </header>
+
+      <!-- Side Nav -->
+      <nav class="p3 bg-gray teal" style="grid-row: 2; grid-column: 1 / 4">
+        <h2 class="font-large mb2">Categories</h2>
+        <ul class="list-reset">
+          <li>
+            <details>
+              <summary>Keyboards</summary>
+              <ul class="list-reset ml2 mb1">
+                <li><a>Wireless</a></li>
+                <li><a>Wired</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Keycaps</summary>
+              <ul class="list-reset ml2 mb1">
+                <li><a>Choc v1</a></li>
+                <li><a>Choc v2</a></li>
+                <li><a>MX</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Switches</summary>
+              <ul class="list-reset ml2 mb1">
+                <li>
+                  <details>
+                    <summary>Low-profile</summary>
+                    <ul class="list-reset ml2">
+                      <li><a>Kailh</a></li>
+                      <li><a>Gateron</a></li>
+                    </ul>
+                  </details>
+                </li>
+                <li>
+                  <details>
+                    <summary>Regular</summary>
+                    <ul class="list-reset ml2">
+                      <li><a>Cherry</a></li>
+                      <li><a>Kailh</a></li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <main class="p3 bg-silver" style="grid-row: 2; grid-column: 4 / -1">
+        <h2 id="products-title" class="mb2 font-large">New</h2>
+        <ul
+          id="products"
+          aria-labelledby="products-title"
+          class="flex flex-column gy2 list-reset"
+          style="max-width: 900px"
+        >
+        </ul>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="bg-black white flex flex-column center p1 font-small"
+        style="grid-column: 1 / -1; grid-row: 3"
+      >
+        <span>AcmeInc ©</span>
+        <span>bla bla bla legalese bla bla we are amazing</span>
+      </footer>
+    </div>
+
+    <!-- Cart Details -->
+    <dialog
+      id="shopping-cart-details"
+      class="p3 bg-white ml-auto box-shadow-sm flex flex-column gy2"
+      style="width: 400px; height: 100vh;"
+    >
+      <div class="flex justify-between items-center">
+        <h2 class="font-large">Shopping Cart</h2>
+        <button command="close" commandfor="shopping-cart-details" class="ghost">
+          <img alt="Close shopping cart" src="./icons/close.svg" />
+        </button>
+      </div>
+      <ul
+        id="cart-content"
+        class="list-reset h-auto gy1 border-fuchsia border-top border-bottom py1"
+      >
+      </ul>
+      <div id="cart-total" class="right-align"></div>
+      <button id="cart-checkout" command="close" commandfor="shopping-cart-details" class="mt-auto">
+        Checkout
+      </button>
+    </dialog>
+
+    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript">
+      renderProducts(window.products.values());
+    </script>
+  </body>
+</html>

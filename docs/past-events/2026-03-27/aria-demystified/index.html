@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/league.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="dist/plugin/highlight/agate.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>ARIA Demystified</h1>
+          <h2>Make your web thing more accessible</h2>
+        </section>
+
+        <section>
+          <h2>What is ARIA?</h2>
+          <ul>
+            <li class="fragment"><b>A</b>ccessible</li>
+            <li class="fragment"><b>R</b>ich</li>
+            <li class="fragment"><b>I</b>nternet</li>
+            <li class="fragment"><b>A</b>pplication</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What is ARIA?</h2>
+
+          <ul>
+            <li class="fragment">Complementary w3 standard for HTML and SVG</li>
+            <li class="fragment">
+              Expose meaning of markup in a machine-readable way
+            </li>
+            <li class="fragment">Web semantics → OS a11y-API</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Who consumes a11y APIs?</h2>
+
+          <ul>
+            <li class="fragment">
+              Assistive Technologies (AT)
+              <ul class="fragment">
+                <li>Braille displays</li>
+                <li>Screen magnifiers</li>
+                <li>Text-to-speech software</li>
+                <li>Screen readers</li>
+                <li>... and more</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Basic VoiceOver Usage</h2>
+
+          <section>
+            <ul>
+              <li class="fragment">
+                VO-Modifier: Cmd-Opt or CapsLock
+              </li>
+
+              <li class="fragment">
+                Navigate
+                <ul>
+                  <li class="fragment">
+                    Move VO-cursor around
+                  </li>
+
+                  <li class="fragment">
+                    Find next/previous element of a specific type (heading,
+                    link, bold, table, etc.)
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <ul>
+              <li class="fragment">
+                Interact
+                <ul>
+                  <li class="fragment">
+                    Read content, sentence, paragraph, etc. under VO-cursor
+                  </li>
+
+                  <li class="fragment">
+                    Start/stop item interaction/inspection
+                  </li>
+
+                  <li class="fragment">
+                    Click, select, drag etc. focused item
+                  </li>
+                </ul>
+              </li>
+              <li class="fragment">
+                Orient
+                <ul class="fragment">
+                  <li clase="fragment">
+                    summarize and filter (Rotor)
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+
+          <aside class="notes">
+            - Enable VO with Cmd-F5
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h2>Using ARIA</h2>
+            <a href="includes/worktrees/01/index.html" target="_blank">Link</a>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+
+            <blockquote>
+              landmark role<br />
+              A perceivable section containing content that is <strong>relevant
+                to a specific, author-specified purpose</strong> and
+              sufficiently important that users will likely want to be able to
+              <strong>navigate to the section easily</strong> [...]
+            </blockquote>
+            <div>- WAI-ARIA 1.2</div>
+          </section>
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+
+            <ul>
+              <li class="fragment">
+                Important sections on web thing (author-defined)
+              </li>
+              <li class="fragment">
+                Generally recognizable on different web things (not
+                domain-specific)
+              </li>
+              <li class="fragment">
+                Allow user to create a coarse mental model of the thing
+              </li>
+              <li class="fragment">
+                Can be used for orientation/navigation
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+
+            <div class="fragment">
+              Specified with role attribute OR by using appropriate tag
+            </div>
+
+            <pre
+              class="fragment"
+            >
+<code class="language-html" data-trim data-noescape><script type="text/template">
+                <!-- native tag with implicit role -->
+                <main>...</main>
+
+                <!-- any tag with explicit role (if role is permitted for tag) -->
+                <div role="main">...</div>
+            </script></code></pre>
+          </section>
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+
+            <small><table>
+                <tr>
+                  <th>ARIA role</th>
+                  <th>HTML native</th>
+                  <th>*</th>
+                </tr>
+
+                <tr>
+                  <td>
+                    banner
+                  </td>
+                  <td>
+                    &lt;header&gt;
+                  </td>
+                  <td>
+                    if in the context of body
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    complementary
+                  </td>
+                  <td colspan="2">
+                    &lt;aside&gt;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    contentinfo
+                  </td>
+                  <td>
+                    &lt;footer&gt;
+                  </td>
+                  <td>
+                    if in the context of body
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    form
+                  </td>
+                  <td colspan="2">
+                    &lt;form&gt;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    main
+                  </td>
+                  <td colspan="2">
+                    &lt;main&gt;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    navigation
+                  </td>
+                  <td colspan="2">
+                    &lt;nav&gt;
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    region
+                  </td>
+                  <td>
+                    &lt;section&gt;
+                  </td>
+                  <td>
+                    if it has an accesible name
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    search
+                  </td>
+                  <td colspan="2">
+                    &lt;search&gt;
+                  </td>
+                </tr>
+              </table></small>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+            <code class="language-diff">
+            <script type="text/template">
+diff --git a/index.html b/index.html
+index 9335b69..2090074 100644
+--- a/index.html
++++ b/index.html
+@@ -8,9 +8,8 @@
+ 
+   <body class="m0">
+     <div class="grid grid-main-template border1 overflow-auto">
+ <!-- Top Bar -->
+-      <div
++      <header
+         class="sticky top-0 grid items-center px3 g2 bg-black"
+         style="grid-template-columns: min-content auto min-content; grid-template-rows: auto; grid-column: 1 / -1; grid-row: 1"
+       >
+@@ -21,13 +20,14 @@
+         </span>
+ 
+         <form
++          role="search"
+           class="m0 flex justify-center flex-auto"
+           onsubmit="searchProducts(event)"
+         >
+@@ -44,13 +44,14 @@
+               id="cart-count"
+               class="hide-empty absolute bold flex items-center justify-center aspect-ratio-1-1 circle white bg-fuchsia font-small border"
+               style="height: 16px; position-anchor: --shopping-cart; top: anchor(-6%); right: anchor(118%)"
+             ></div>
+           </div>
+         </div>
+-      </div>
++      </header>
+ 
+ <!-- Side Nav -->
+-      <div class="p3 bg-gray teal" style="grid-row: 2; grid-column: 1 / 4">
++      <nav class="p3 bg-gray teal" style="grid-row: 2; grid-column: 1 / 4">
+         <div class="font-large mb2">Categories</div>
+         <ul class="list-reset">
+           <li>
+@@ -88,10 +89,10 @@
+             </ul>
+           </li>
+         </ul>
+-      </div>
++      </nav>
+ 
+ <!-- Main -->
+-      <div class="p3 bg-silver" style="grid-row: 2; grid-column: 4 / -1">
++      <main class="p3 bg-silver" style="grid-row: 2; grid-column: 4 / -1">
+         <div id="products-title" class="mb2 font-large">New</div>
+         <div
+           id="products"
+@@ -99,19 +100,19 @@
+           style="max-width: 900px"
+         >
+         </div>
+-      </div>
++      </main>
+ 
+ <!-- Footer -->
+-      <div
++      <footer
+         class="bg-black white flex flex-column center p1 font-small"
+         style="grid-column: 1 / -1; grid-row: 3"
+       >
+         <span>AcmeInc ©</span>
+         <span>bla bla bla legalese bla bla we are amazing</span>
+-      </div>
++      </footer>
+     </div>
+ 
+ <!-- Cart Details -->
+     <div
+       id="shopping-cart-details"
+       class="p3 bg-white top-0 right-0 bottom-0 fixed z1 box-shadow-sm flex-column gy2"
+            </script></code></pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+            <a href="includes/worktrees/02/index.html" target="_blank">Link</a>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Landmarks</h2>
+
+            <h3>Takeaways</h3>
+
+            <ul>
+              <li class="fragment">
+                Identify landmarks in your web thing and use the appropriate
+                tags/roles
+              </li>
+              <li class="fragment">
+                Prefer native HTML elements over role attribute
+              </li>
+              <li class="fragment">
+                Use landmarks sparingly, too many defeat their purpose
+              </li>
+              <li class="fragment">
+                If you have multiple landmarks of the same type, name them
+                appropriately
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Using ARIA: Naming Things</h2>
+
+            <ul>
+              <li class="fragment">
+                Proper naming is crucial to make a web thing accessible for
+                screen readers
+              </li>
+              <li class="fragment">
+                Missing/incorrect naming is akin to CSS * { display: none; }
+              </li>
+              <li class="fragment">
+                Browser can try fallbacks to name things, but those are not
+                always useful
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Naming Things</h2>
+
+            <h3>How to set an accessible name</h3>
+
+            <small><table>
+                <tr>
+                  <th>
+                    Mechanism
+                  </th>
+                  <th>
+                    Example
+                  </th>
+                </tr>
+
+                <tr>
+                  <td>Element's text content</td>
+                  <td><pre>&lt;h1&gt;Hello Winti Web&lt;/h1&gt;</pre></td>
+                </tr>
+                <tr>
+                  <td>label, figcaption, caption, legend tags</td>
+                  <td>
+                    <pre>&lt;label&gt;Hello Winti Web &lt;input /&gt;&lt;/label&gt;</pre>
+                  </td>
+                </tr>
+                <tr>
+                  <td>aria-label attribute</td>
+                  <td><pre>&lt;div aria-label="Hello Winti Web"&gt;</pre></td>
+                </tr>
+                <tr>
+                  <td>aria-labelledby attribute</td>
+                  <td>
+                    <pre>&lt;div aria-labelledby="some-id other-id"&gt;<br/>&lt;div id="some-id" aria-label="Hello"&gt;<br/>&lt;div id="other-id" aria-label="Winti Web"&gt;</pre>
+                  </td>
+                </tr>
+                <tr>
+                  <td>alt, title attributes</td>
+                  <td><pre>&lt;img alt="Hello Winti Web"&gt;</pre></td>
+                </tr>
+                <tr>
+                  <td>input placeholder (not recommended)</td>
+                  <td>
+                    <pre>&lt;input placeholder="Hello Winti Web"/&gt;</pre>
+                  </td>
+                </tr>
+              </table></small>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Naming Things</h2>
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+              <code class="language-diff">
+                <script type="text/template">diff --git a/index.html b/index.html
+index 7df19ee..014c0da 100644
+--- a/index.html
++++ b/index.html
+@@ -21,6 +21,7 @@
+ 
+         <form
+           role="search"
++          aria-label="Products"
+           class="m0 flex justify-center flex-auto"
+           onsubmit="searchProducts(event)"
+         >
+@@ -30,18 +31,26 @@
+             style="max-width: 350px"
+             placeholder="Search keyboards, switches, caps ..."
+           />
+-          <button class="border"><img src="./icons/search.svg"></button>
++          <button aria-label="Search" class="border">
++            <img src="./icons/search.svg">
++          </button>
+         </form>
+ 
+         <div class="flex justify-end">
+           <div
++            aria-labelledby="cart-icon cart-count"
+             class="w-fit-content cursor-pointer"
+             style="anchor-name: --shopping-cart"
+             onclick="toggleShoppingCart()"
+           >
+-            <img src="./icons/shopping-cart.svg" />
++            <img
++              id="cart-icon"
++              aria-label="Shopping Cart"
++              src="./icons/shopping-cart.svg"
++            />
+             <div
+               id="cart-count"
++              aria-label="is empty"
+               class="hide-empty absolute bold flex items-center justify-center aspect-ratio-1-1 circle white bg-fuchsia font-small border"
+               style="height: 16px; position-anchor: --shopping-cart; top: anchor(-6%); right: anchor(118%)"
+             ></div>
+
+diff --git a/script.js b/script.js
+index 0d38dcb..963e418 100644
+--- a/script.js
++++ b/script.js
+@@ -63,7 +65,11 @@ function updateCart(productId, difference) {
+   });
+ 
+   const products = window.cart.values().reduce((acc, v) => acc + v, 0) || "";
+-  document.getElementById("cart-count").textContent = products;
++  const cartCount = document.getElementById("cart-count");
++  cartCount.textContent = products;
++  cartCount.ariaLabel = products
++    ? `contains ${products} item${products === 1 ? "" : "s"}`
++    : "is empty";
+ 
+   renderCartContent();
+ 
+                </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Naming Things</h2>
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+              <code class="language-diff">
+                <script type="text/template">diff --git a/script.js b/script.js
+index 0d38dcb..963e418 100644
+--- a/script.js
++++ b/script.js
+@@ -42,13 +42,15 @@ function renderProducts(products, filtered) {
+ }
+ 
+ function renderProduct(product) {
++  const titleId = Math.random();
++  const cartId = Math.random();
+   return `<div class="grid g1 pt2 border-top border-fuchsia" style="grid-template-rows: repeat(2, 1fr); grid-template-columns: min-content auto;" >
+-            <img src="./products/${product.id}.avif" style="width: 100px; grid-row: 1 / -1; grid-column: 1 / 2;" />
++            <img alt="Product picture of ${product.title}" src="./products/${product.id}.avif" style="width: 100px; grid-row: 1 / -1; grid-column: 1 / 2;" />
+             <div class="flex justify-between">
+-                ${product.title}
++                <span id="${titleId}">${product.title}</span>
+                 <span>${priceFormatter.format(product.price)}</span>
+             </div>
+-            <img src="./icons/add-to-cart.svg" class="border-none ml-auto cursor-pointer" onclick="updateCart('${product.id}', 1)" />
++            <img id="${cartId}" aria-label="Add to cart" aria-labelledby="${cartId} ${titleId}" src="./icons/add-to-cart.svg" class="border-none ml-auto cursor-pointer" onclick="updateCart('${product.id}', 1)" />
+         </div>`;
+ }
+ 
+                </script>
+              </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Naming Things</h2>
+            <a href="includes/worktrees/03/index.html" target="_blank">Link</a>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Naming Things</h2>
+            <h3>Takeaways</h3>
+
+            <ul>
+              <li class="fragment">
+                If possible, design your thing so visible text == accessible
+                name
+              </li>
+              <li class="fragment">
+                Give elements succinct names, that convey purpose and intent
+              </li>
+              <li class="fragment">
+                Don't include role in name (e.g. use "product" for search, not
+                "product search")
+              </li>
+              <li class="fragment">
+                For longer (concatenated) labels, put important part at front
+              </li>
+              <li class="fragment">
+                Don't forget to translate names
+              </li>
+              <li class="fragment">
+                Test with a screen reader
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Using ARIA: Reducing Noise and Confusion</h2>
+            <ul>
+              <li class="fragment">
+                Sound of your web thing may be overly verbose
+              </li>
+              <li class="fragment">
+                Relying too heavily on generic tags may confuse user
+              </li>
+              <li class="fragment">
+                Using semantic tags in unintended ways, may confuse user
+              </li>
+              <li class="fragment">
+                Reducing superfluous information, using meaningful tags and
+                hiding decorative elements from AT improves legibility
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Reducing Noise and Confusion</h2>
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+            <code class="language-diff">
+            <script type="text/template">diff --git a/index.html b/index.html
+index 014c0da..13bc9c3 100644
+--- a/index.html
++++ b/index.html
+@@ -14,9 +14,12 @@
+         style="grid-template-columns: min-content auto min-content; grid-template-rows: auto; grid-column: 1 / -1; grid-row: 1"
+       >
+         <span class="relative bold w-max-content white absolute-coolness">
+-          <span class="absolute">AcmeStore</span>
+-          <span>A</span><span>c</span><span>m</span><span>e</span><span
+-          >S</span><span>t</span><span>o</span><span>r</span><span>e</span>
++          <h1 class="absolute">AcmeStore</h1>
++          <span aria-hidden="true">A</span><span aria-hidden="true"
++          >c</span><span aria-hidden="true">m</span><span aria-hidden="true"
++          >e</span><span aria-hidden="true">S</span><span aria-hidden="true"
++          >t</span><span aria-hidden="true">o</span><span aria-hidden="true"
++          >r</span><span aria-hidden="true">e</span>
+         </span>
+ 
+         <form
+@@ -32,14 +35,14 @@
+             placeholder="Search keyboards, switches, caps ..."
+           />
+           <button aria-label="Search" class="border">
+-            <img src="./icons/search.svg">
++            <img aria-hidden="true" src="./icons/search.svg">
+           </button>
+         </form>
+ 
+         <div class="flex justify-end">
+-          <div
++          <button
+             aria-labelledby="cart-icon cart-count"
+-            class="w-fit-content cursor-pointer"
++            class="ghost w-fit-content cursor-pointer"
+             style="anchor-name: --shopping-cart"
+-            onclick="toggleShoppingCart()"
++            command="show-modal"
++            commandfor="shopping-cart-details"
+           >
+@@ -54,60 +57,71 @@
+               class="hide-empty absolute bold flex items-center justify-center aspect-ratio-1-1 circle white bg-fuchsia font-small border"
+               style="height: 16px; position-anchor: --shopping-cart; top: anchor(-6%); right: anchor(118%)"
+             ></div>
+-          </div>
++          </button>
+
+            </script>
+            </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Reducing Noise and Confusion</h2>
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+            <code class="language-diff">
+            <script type="text/template">@@ -54,60 +57,71 @@
+       <!-- Side Nav -->
+       <nav class="p3 bg-gray teal" style="grid-row: 2; grid-column: 1 / 4">
+-        <div class="font-large mb2">Categories</div>
++        <h2 class="font-large mb2">Categories</h2>
+         <ul class="list-reset">
+           <li>
+-            <a onclick="toggleSidebarMenu(event)">+ Keyboards</a>
+-            <ul class="list-reset ml2 mb1 hide">
+-              <li><a>Wireless</a></li>
+-              <li><a>Wired</a></li>
+-            </ul>
++            <details>
++              <summary>Keyboards</summary>
++              <ul class="list-reset ml2 mb1">
++                <li><a>Wireless</a></li>
++                <li><a>Wired</a></li>
++              </ul>
++            </details>
+           </li>
+           <li>
+-            <a onclick="toggleSidebarMenu(event)">+ Keycaps</a>
+-            <ul class="list-reset ml2 mb1 hide">
+-              <li><a>Choc v1</a></li>
+-              <li><a>Choc v2</a></li>
+-              <li><a>MX</a></li>
+-            </ul>
++            <details>
++              <summary>Keycaps</summary>
++              <ul class="list-reset ml2 mb1">
++                <li><a>Choc v1</a></li>
++                <li><a>Choc v2</a></li>
++                <li><a>MX</a></li>
++              </ul>
++            </details>
+           </li>
+           <li>
+-            <a onclick="toggleSidebarMenu(event)">+ Switches</a>
+-            <ul class="list-reset ml2 mb1 hide">
+-              <li>
+-                <a onclick="toggleSidebarMenu(event)">+ Low-profile</a>
+-                <ul class="list-reset ml2 hide">
+-                  <li><a>Kailh</a></li>
+-                  <li><a>Gateron</a></li>
+-                </ul>
+-              </li>
+-              <li>
+-                <a onclick="toggleSidebarMenu(event)">+ Regular</a>
+-                <ul class="list-reset ml2 hide">
+-                  <li><a>Cherry</a></li>
+-                  <li><a>Kailh</a></li>
+-                </ul>
+-              </li>
+-            </ul>
++            <details>
++              <summary>Switches</summary>
++              <ul class="list-reset ml2 mb1">
++                <li>
++                  <details>
++                    <summary>Low-profile</summary>
++                    <ul class="list-reset ml2">
++                      <li><a>Kailh</a></li>
++                      <li><a>Gateron</a></li>
++                    </ul>
++                  </details>
++                </li>
++                <li>
++                  <details>
++                    <summary>Regular</summary>
++                    <ul class="list-reset ml2">
++                      <li><a>Cherry</a></li>
++                      <li><a>Kailh</a></li>
++                    </ul>
++                  </details>
++                </li>
++              </ul>
++            </details>
+           </li>
+         </ul>
+       </nav>
+            </script>
+            </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Reducing Noise and Confusion</h2>
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+            <code class="language-diff">
+            <script type="text/template">@@ -121,27 +136,27 @@
+     </div>
+ 
+     <!-- Cart Details -->
+-    <div
++    <dialog
+       id="shopping-cart-details"
+-      class="p3 bg-white top-0 right-0 bottom-0 fixed z1 box-shadow-sm flex-column gy2"
+-      style="width: 400px; display: none"
++      class="p3 bg-white ml-auto box-shadow-sm flex flex-column gy2"
++      style="width: 400px; height: 100vh;"
+     >
+-      <div class="h2 flex justify-between items-center">
+-        Shopping Cart
+-        <div onclick="toggleShoppingCart()" class="cursor-pointer">
+-          <img src="./icons/close.svg" />
+-        </div>
++      <div class="flex justify-between items-center">
++        <h2 class="font-large">Shopping Cart</h2>
++        <button command="close" commandfor="shopping-cart-details" class="ghost">
++          <img alt="Close shopping cart" src="./icons/close.svg" />
++        </button>
+       </div>
+-      <div
++      <ul
+         id="cart-content"
+-        class="h-auto gy1 border-fuchsia border-top border-bottom py1"
++        class="list-reset h-auto gy1 border-fuchsia border-top border-bottom py1"
+       >
+-      </div>
++      </ul>
+       <div id="cart-total" class="right-align"></div>
+-      <button id="cart-checkout" onclick="toggleShoppingCart()" class="mt-auto">
++      <button id="cart-checkout" command="close" commandfor="shopping-cart-details" class="mt-auto">
+         Checkout
+       </button>
+-    </div>
++    </dialog>
+</script>
+            </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Reducing Noise and Confusion</h2>
+            <a href="includes/worktrees/04/index.html" target="_blank">Link</a>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Reducing Noise and Confusion</h2>
+            <h3>Takeaways</h3>
+
+            <ul>
+              <li class="fragment">
+                Be careful when hiding text by opacity/transparency, font-size,
+                or positioning offscreen
+              </li>
+              <li class="fragment">
+                Use tags with appropriate semantics whenever possible
+              </li>
+              <li class="fragment">
+                Hide decorative items from AT with aria-hidden
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Using ARIA: Live Regions</h2>
+
+            <ul>
+              <li class="fragment">
+                Elements that don't have focus, may have their content changed
+              </li>
+              <li class="fragment">
+                AT needs to be informed about change, without having to move
+                focus there
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Live Regions</h2>
+            <h3>In practice</h3>
+
+            <pre
+              class="fragment"
+            >
+            <code class="language-diff">
+            <script type="text/template">diff --git a/index.html b/index.html
+index ae8eb18..59b70e9 100644
+--- a/index.html
++++ b/index.html
+@@ -42,6 +42,7 @@
+         <div class="flex justify-end">
+           <button
+             aria-labelledby="cart-icon cart-count"
++            aria-live="polite"
+             class="ghost w-fit-content cursor-pointer"
+             style="anchor-name: --shopping-cart"
+             command="show-modal"
+@@ -114,11 +115,14 @@
+       </nav>
+ 
+       <!-- Main -->
+-      <main class="p3 bg-silver" style="grid-row: 2; grid-column: 4 / -1">
++      <main
++        aria-live="assertive"
++        class="p3 bg-silver"
++        style="grid-row: 2; grid-column: 4 / -1"
++      >
+         <h2 id="products-title" class="mb2 font-large">New</h2>
+         <ul
+           id="products"
+-          aria-labelledby="products-title"
+           class="flex flex-column gy2 list-reset"
+           style="max-width: 900px"
+         >
+@@ -152,7 +156,7 @@
+         class="list-reset h-auto gy1 border-fuchsia border-top border-bottom py1"
+       >
+       </ul>
+-      <div id="cart-total" class="right-align"></div>
++      <div id="cart-total" role="status" class="right-align"></div>
+       <button id="cart-checkout" command="close" commandfor="shopping-cart-details" class="mt-auto">
+         Checkout
+       </button>
+diff --git a/script.js b/script.js
+index 0cecd60..f4244aa 100644
+--- a/script.js
++++ b/script.js
+@@ -19,11 +19,15 @@ function searchProducts(event) {
+ }
+ 
+ function renderSearching() {
++  const main = document.querySelector("main");
++  main.ariaDescribedBy = "loading-spinner";
++
+   const title = document.getElementById("products-title");
+   title.textContent = "Results";
+ 
+   const productsContainer = document.getElementById("products");
+-  productsContainer.innerHTML = '<div class="spinner mx-auto"></div>';
++  productsContainer.innerHTML =
++    '<div id="loading-spinner" role="progressbar" aria-label="Loading" class="spinner mx-auto"></div>';
+ }
+ 
+ function toggleShoppingCart() {
+@@ -32,6 +36,9 @@ function toggleShoppingCart() {
+ }
+ 
+ function renderProducts(products, filtered) {
++  const main = document.querySelector("main");
++  main.ariaDescribedBy = undefined;
++
+   const title = document.getElementById("products-title");
+   title.textContent = filtered ? "Results" : "New Products";
+ 
+            </script>
+            </code>
+            </pre>
+          </section>
+
+          <section>
+            <h2>Using ARIA: Live Regions</h2>
+            <a href="includes/worktrees/05/index.html" target="_blank">Link</a>
+          </section>
+        </section>
+
+        <section>
+          <h2>Recap</h2>
+
+          <ul>
+            <li class="fragment">
+              Identify and mark essential landmarks appropriately, name them if
+              necessary
+            </li>
+            <li class="fragment">
+              Ensure everything that is not purely decorative has an accessible
+              name
+            </li>
+            <li class="fragment">Don't forget to translate accessible names</li>
+            <li class="fragment">
+              Use semantic tags or roles to declare intent of an element
+            </li>
+            <li class="fragment">Reduce noise by hiding decorative elements</li>
+            <li class="fragment">
+              Mark dynamically changing regions with aria-live or appropriate
+              roles
+            </li>
+            <li class="fragment">ACTUALLY TEST WITH A SCREEN READER</li>
+
+          </ul>
+        </section>
+
+        <section>
+          <h1>FIN</h1>
+
+          <ul>
+            <li>
+              <a href="https://www.w3.org/WAI/ARIA/apg/"
+              >WAI Authoring Practices Guide</a>
+            </li>
+            <li>
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Guides"
+              >MDN ARIA Guides</a>
+            </li>
+            <li>
+              <a
+                href="https://www.w3.org/TR/wai-aria-1.2/"
+              >ARIA-1.2 Specification</a>
+            </li>
+            <li>
+              <a href="https://motato.srht.site/aria-talk/"
+              >motato.srht.site/aria-talk</a> (Slides)
+            </li>
+            <li>
+              <a href="https://sr.ht/~motato/aria-presentation/"
+              >sr.ht/~motato/aria-demo</a> (Demo)
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="dist/plugin/notes.js"></script>
+    <script src="dist/plugin/markdown.js"></script>
+    <script src="dist/plugin/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
